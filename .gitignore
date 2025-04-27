@@ -1,0 +1,9 @@
+.idea/
+venv/
+.venv/
+.git
+.pytest_cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd

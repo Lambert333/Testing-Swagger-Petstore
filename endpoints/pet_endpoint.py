@@ -16,6 +16,7 @@ class PetEndpoint(BaseEndpoint):
     def get_pets_by_status(self, status, expected_status=200):
         params = {'status': status}
         return self.get("/pet/findByStatus", params=params, expected_status=expected_status)
+
     # обновляем данные о питомце с помощью метода PUT
     def update_pet(self, payload, expected_status):
         return self.put("/pet", payload=payload, expected_status=expected_status)
@@ -45,19 +46,20 @@ class PetEndpoint(BaseEndpoint):
             data = {}
             if additional_metadata:
                 data['additionalMetadata'] = additional_metadata
-            
+
             url = f"{self.base_url}/pet/{pet_id}/uploadImage"
-            
+
             # Создаем новую сессию для загрузки файлов
             session = requests.Session()
             session.headers.update({
                 'accept': 'application/json',
                 'api_key': self.session.headers.get('api_key')
             })
-            
+
             self.response = session.post(url, files=files, data=data)
             self._handle_response(expected_status)
             return self.response
+
     # Проверяет ответ при загрузке изображения
     def check_upload_image_response(self, expected_code=200, expected_metadata=None):
         """

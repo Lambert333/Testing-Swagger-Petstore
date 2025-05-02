@@ -1,6 +1,8 @@
 import random
 import string
 import time
+
+
 def generate_valid_pet_payload(name=None, status="available"):
     payload = {
         "id": int(time.time()),
@@ -20,12 +22,14 @@ def generate_valid_pet_payload(name=None, status="available"):
     }
     return payload
 
+
 def generate_minimal_valid_pet_payload(name=None):
     payload = {
         "id": int(time.time()),
         "name": name or ''.join(random.choices(string.ascii_letters, k=8)),
     }
     return payload
+
 
 def generate_valid_store_order_payload():
     payload = {
@@ -38,6 +42,7 @@ def generate_valid_store_order_payload():
     }
     return payload
 
+
 def generate_invalid_store_order_payload():
     payload = {
         "id": "order_id",
@@ -49,18 +54,20 @@ def generate_invalid_store_order_payload():
     }
     return payload
 
+
 def generate_valid_user_payload():
     payload = {
         "id": int(time.time()),
         "username": ''.join(random.choices(string.ascii_letters, k=8)),
         "firstName": random.choice(["John", "Jane", "Alice", "Bob"]),
         "lastName": random.choice(["Smith", "Doe", "Brown"]),
-        "email": f"user{random.randint(1000,9999)}@example.com",
+        "email": f"user{random.randint(1000, 9999)}@example.com",
         "password": ''.join(random.choices(string.ascii_letters + string.digits, k=10)),
-        "phone": f"{random.randint(100,999)}-{random.randint(100,999)}-{random.randint(1000,9999)}",
+        "phone": f"{random.randint(100, 999)}-{random.randint(100, 999)}-{random.randint(1000, 9999)}",
         "userStatus": random.randint(0, 1)
     }
     return payload
+
 
 def generate_invalid_user_payload():
     payload = {
@@ -75,9 +82,11 @@ def generate_invalid_user_payload():
     }
     return payload
 
+
 # генерируем массив валидных пользователей
 def generate_users_array(count=2):
     return [generate_valid_user_payload() for _ in range(count)]
+
 
 # генерируем массив невалидных пользователей
 def generate_invalid_users_array(count=2):

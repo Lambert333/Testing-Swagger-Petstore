@@ -1,8 +1,8 @@
 import logging
-import time
 from utils.retry import retry
 
 logger = logging.getLogger(__name__)
+
 
 class BaseEndpoint:
     def __init__(self, session, base_url):
@@ -10,7 +10,6 @@ class BaseEndpoint:
         self.base_url = base_url
         self.response = None
         self.response_json = None
-
 
     # использование метода POST
     @retry(max_attempts=10, delay=1.0)
@@ -72,11 +71,11 @@ class BaseEndpoint:
             assert self.response_json["code"] == expected_code, (
                 f"Expected code {expected_code}, got {self.response_json['code']}"
             )
-        
+
         if required_fields:
             for field in required_fields:
                 assert field in self.response_json, f"Response should contain '{field}' field"
-        
+
         if message_contains and "message" in self.response_json:
             for text in message_contains:
                 assert text in self.response_json["message"], (

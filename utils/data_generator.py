@@ -1,43 +1,35 @@
 import random
 import string
-
+import time
 def generate_valid_pet_payload(name=None, status="available"):
     payload = {
-        "id": random.randint(100000, 999999),
+        "id": int(time.time()),
         "category": {
             "id": random.randint(1, 100),
-            "name": random.choice(["dog", "cat", "bird"])
+            "name": random.choice(["dog", "cat", "bird", "fish"])
         },
         "name": name or ''.join(random.choices(string.ascii_letters, k=8)),
         "photoUrls": ["https://example.com/photo.jpg"],
         "tags": [
             {
                 "id": random.randint(1, 100),
-                "name": random.choice(["cute", "fluffy", "tiny"])
+                "name": random.choice(["cute", "fluffy", "tiny", "beautiful", "black", "white"])
             }
         ],
         "status": status
     }
     return payload
 
-def generate_minimal_valid_pet_payload(name=None, status="available"):
+def generate_minimal_valid_pet_payload(name=None):
     payload = {
-        "id": random.randint(100000, 999999),
+        "id": int(time.time()),
         "name": name or ''.join(random.choices(string.ascii_letters, k=8)),
-    }
-    return payload
-
-def generate_invalid_pet_payload():
-    payload = {
-        "id": "invalid_id",  # строка вместо числа
-        "photoUrls": "should-be-a-list",  # ошибка типа
-        "status": 12345  # неверный тип статуса
     }
     return payload
 
 def generate_valid_store_order_payload():
     payload = {
-        "id": random.randint(100000, 999999),
+        "id": int(time.time()),
         "petId": random.randint(1000, 9999),
         "quantity": random.randint(1, 10),
         "shipDate": "2025-04-30T14:00:00.000Z",
@@ -59,7 +51,7 @@ def generate_invalid_store_order_payload():
 
 def generate_valid_user_payload():
     payload = {
-        "id": random.randint(100000, 999999),
+        "id": int(time.time()),
         "username": ''.join(random.choices(string.ascii_letters, k=8)),
         "firstName": random.choice(["John", "Jane", "Alice", "Bob"]),
         "lastName": random.choice(["Smith", "Doe", "Brown"]),
@@ -82,3 +74,11 @@ def generate_invalid_user_payload():
         "userStatus": "active"  # строка вместо числа
     }
     return payload
+
+# генерируем массив валидных пользователей
+def generate_users_array(count=2):
+    return [generate_valid_user_payload() for _ in range(count)]
+
+# генерируем массив невалидных пользователей
+def generate_invalid_users_array(count=2):
+    return [generate_invalid_user_payload() for _ in range(count)]
